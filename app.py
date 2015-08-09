@@ -1,5 +1,5 @@
-import requests
-from flask import Flask, request, redirect
+import requests, gspread
+from flask import Flask, request, redirect, render_template
 
 app = Flask(__name__)
 
@@ -17,7 +17,7 @@ def index():
 
     parameters = [
         'client_id={}'.format(GOOGLE_CLIENT_ID),
-        'redirect_uri={}'.format('http://localhost:8080/oauth2callback'),
+        'redirect_uri={}'.format('http://localhost:5000/oauth2callback'),
         'response_type=code',
         'scope=profile']
 
