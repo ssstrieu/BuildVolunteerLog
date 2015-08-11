@@ -1,6 +1,7 @@
 import requests, gspread
 from flask import Flask, request, redirect, render_template
 
+
 app = Flask(__name__)
 
 GOOGLE_CLIENT_ID = '834450588178-tmqi729odq8h0vkbik3rk9rm4no4aqgp.apps.googleusercontent.com'
@@ -9,6 +10,10 @@ GOOGLE_CLIENT_SECRET = 'epOQT9krb6yKrkj7tu74PBEy'
 
 @app.route('/')
 def index():
+    return render_template('index.html')
+
+@app.route('/signin', methods=['GET'])
+def signin():
 
     # We are going to immediately redirect to Google. We could ask the user
     # to sign in by clicking a button, if this were a more interesting app.
@@ -25,7 +30,6 @@ def index():
 
     return redirect(signin_url)
 
-
 @app.route('/oauth2callback')
 def callback():
     code = request.args.get('code')
@@ -39,7 +43,7 @@ def callback():
     data = {
         'client_id': GOOGLE_CLIENT_ID,
         'client_secret': GOOGLE_CLIENT_SECRET,
-        'redirect_uri': 'http://localhost:8080/oauth2callback',
+        'redirect_uri': 'http://localhost:5000/oauth2callback',
         'code': code,
         'grant_type': 'authorization_code'
     }
