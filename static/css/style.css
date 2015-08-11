@@ -1,0 +1,28 @@
+body{
+	background-image: url("../img/books.jpg");
+	background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.main{
+	margin-top:10%;
+	background-color: #000;
+	padding: 5%;
+}
+
+.main h1{
+font: helvetica, sans-serif;
+color: #fff;
+
+}
+.main button{
+	display:inline;
+}
+
+footer{
+	position: absolute;
+	bottom:1;
+	color: #000;
+	opacity: .5;
+	padding:6px;
+}
