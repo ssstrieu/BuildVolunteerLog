@@ -1,8 +1,10 @@
 import requests, gspread
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, session
+from sheet import *
 
+app = Flask(__name__) 
+app.secret_key = 'thisisasecret'
 
-app = Flask(__name__)
 
 GOOGLE_CLIENT_ID = '834450588178-tmqi729odq8h0vkbik3rk9rm4no4aqgp.apps.googleusercontent.com'
 GOOGLE_CLIENT_SECRET = 'epOQT9krb6yKrkj7tu74PBEy'
@@ -10,7 +12,8 @@ GOOGLE_CLIENT_SECRET = 'epOQT9krb6yKrkj7tu74PBEy'
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    signed_in= False
+    return render_template('index.html', signed_in=signed_in)
 
 @app.route('/signin', methods=['GET'])
 def signin():
@@ -30,6 +33,7 @@ def signin():
 
     return redirect(signin_url)
 
+#fxn for Google OAuth
 @app.route('/oauth2callback')
 def callback():
     code = request.args.get('code')
@@ -58,10 +62,13 @@ def callback():
 
     r = requests.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token={}'.format(token))
 
-    info = r.json()
-    print info
-    user_name = info.get('name')
-    return "Thank you for signing in, {}".format(user_name)
+    info = r.json() #the google acct info in JSON
+    session['user_name'] = info.get('name')
+    message= "Thank you for signing in, {}".format(session['user_name'])
+    signed_in=True
+    students=pull_students('Berkeley')
+
+    return render_template('index.html', message=message, students=students,signed_in=signed_in )
 
 # @app.route('/submit')
 # def submitform():

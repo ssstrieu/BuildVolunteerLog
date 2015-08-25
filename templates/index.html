@@ -15,7 +15,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#">BUILD Volunteer Log</a>
+	      <a class="navbar-brand" href="/">BUILD Volunteer Log</a>
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -27,33 +27,40 @@
 	    	</ul> -->
 			
 			<!-- Button routes to the Google OAUTH -->	
-			<form class="nav navbar-nav navbar-right navbar-form" role="signin" action='/signin' method='GET'>
-				<div class="form-group">
-				<button class="btn btn-danger" type="submit"><strong>Sign In with Google</strong></button>
-			</div>
-			</form> 
+			{% if signed_in==False %}
+				<form class="nav navbar-nav navbar-right navbar-form" role="signin" action='/signin' method='GET'>
+					<div class="form-group">
+					<button class="btn btn-danger" type="submit"><strong>Sign In </strong></button>
+				</div>
+				</form> 
+			{% endif%}
+
+			{% if signed_in==True %}
+				<div class='nav navbar-nav navbar-right' style='color:yellow;padding:15px;'> {{ message }}</div>
+			{% endif %}
 
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
 </head>
 
-
-
-
 <body>
 
 	<!-- The form the Volunteers fill out after signing in -->
 	<div class="container main">
-		<h2>Hi, <span style='font-style: italic; color:red;'>VOLUNTEER_NAME</span>! </H2>
-		<H1>Log your Activity at <span style='font-style: italic; color:red;'>SITE_LOCATION</span>:</h1>
+		{% if signed_in==False %}
+			<H1>Welcome to the BUILD Volunteer Log</H1>
+			<h2>Please sign in with your BeConnected Account.</h2>
 
-	        <form action='/log' method='POST' class="">
-	          <div class='row' STYLE='PADDING:10PX 0;'>
+		{% endif %}
+		{% if signed_in==True %}
+		<H1>Please Log your Activity at <span style='font-style: italic; color:red;'>SITE_LOCATION</span>:</h1>
+
+	    <form action='/log' method='POST' class="">
+	        <div class='row' STYLE='PADDING:10PX 0;'>
 	          	<div class='col-md-3'>
-
 					<!--A dropdown list of students. Will be dynamically generated dep on Site Location. -->
-	                <lable for='site'>Site Location</lable>
+	                <lable for='site' class='labels'>Site Location</lable>
 	                <select class='form-control' id='select' name='site'>
 	                    <option value='site_1'>School1</option>
 	                    <option value='site_2'>School2</option>
@@ -62,33 +69,31 @@
 	                    <option value='site_5'>School5</option>
 	                </select>
 	            </div>
+	            
 	            <div class='col-md-3'>
-
 					<!--A dropdown list of students. Will be dynamically generated dep on Site Location. -->
-	                <lable for='scholar'>Scholar Name</lable>
+	                <lable for='scholar' class='labels'>Scholar Name</lable>
 	                <select class='form-control' id='select' name='scholar'>
-	                    <option value='student_1'>Lily</option>
-	                    <option value='student_2'>Sean</option>
-	                    <option value='student_3'>Donald</option>
-	                    <option value='student_4'>Matthew</option>
-	                    <option value='student_5'>Sara</option>
+	                    {% for s in students %}
+	                    	<option value= {{ s[0] }}>{{ s[1] }}</option>
+	                    {% endfor %}
 	                </select>
 	            </div>
+
 	            <div class='col-md-2'>
-	                
-	                <label for='duration'>Time Spent</label>
+	                <label for='duration' class='labels'>Time Spent</label>
 	                <input type="number" class='form-control' name="duration" placeholder="(Minutes)">
 	            </div>
 	            <div class='col-md-4'>
-	                <label for='notes'>Notes</label>
+	                <label for='notes'class='labels'>Notes</label>
 	                <input type="text" class='form-control' name="notes" placeholder="(Optional)">
 	            </div>
 
 	          </div> <!--row-->
-
 	          <a href='#placeResults'><button class="showBtn btn btn-primary roundCorners" type="submit"><strong>Submit</strong></button></a>
-        	</form><!--/input-group -->
+        </form><!--/input-group -->
 	</div>
+	{% endif %}
 
         
 
@@ -99,4 +104,4 @@
     <script src="../static/js/main.js"></script>
 </body>
 
-<footer>Berkeley Unified in Literacy Development</footer>
+<footer>Berkeley Unified in Literacy Development 2015</footer>
