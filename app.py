@@ -66,12 +66,26 @@ def callback():
     session['user_name'] = info.get('name')
     message= "Thank you for signing in, {}".format(session['user_name'])
     signed_in=True
-    students=pull_students('Berkeley')
+    students=pull_students('Berkeley') #change the site location here
 
     return render_template('index.html', message=message, students=students,signed_in=signed_in )
 
-# @app.route('/submit')
-# def submitform():
+@app.route('/submitLog',methods=['POST'])
+def submitform():
+    signed_in=True
+    #confirms the information before submission
+    ###code this later
+    #writes to sheet
+    site=request.form.get('site')
+    scholar=request.form.get('scholar')
+    note=request.form.get('note')
+    duration=int(request.form.get('duration'))
+    write_to_log(site,session['user_name'],scholar,duration,note)
+    message='Thank you for submitting your activity.'
+    students=pull_students('Berkeley') #change the site location here
+    
+    return render_template('index.html', students=students,message=message,signed_in=signed_in )
+
     
 
 if __name__ == "__main__":
