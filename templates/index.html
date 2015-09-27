@@ -55,17 +55,19 @@
 
 		{% endif %}
 		{% if signed_in==True %}
-		<H1>Please Log your Mentor Activity <span style='font-style: italic; color:red;'></span></h1>
+		<H1>Please Log your Activity <span style='font-style: italic; color:red;'></span></h1>
 
-	    <form action='/submitLog' method='POST' class="">
+	    <form action='/submitLog' method='POST'>
 	        <div class='row' STYLE='PADDING:10PX 0;'>
-	          	
+	          	<div class='col-md-3'>
+	          		<label for='date' class='labels'>Date</label>
+	                <input type="date" class='form-control' name="date" >
+	          	</div>
 
 	          	<div class='col-md-3'>
-					<!--A dropdown list of students. Will be dynamically generated dep on Site Location... later -->
 	                <lable for='site' class='labels'>Site Location</lable>
 	                <select class='form-control' id='select' name='site'>
-	                    <option value='site_1'>Longfellow</option>
+	                    <option value='Longfellow'>Longfellow</option>
 
 	                    <!-- options for more school site --->
 	                    
@@ -78,13 +80,9 @@
 
 	                </select>
 	            </div>
+	            
+	            <div class='col-md-6'>
 
-	        </div> <!--end row-->
-	            
-	        <div class='row' STYLE='PADDING:10PX 0;'>
-	            
-	            <div class='col-md-5'>
-					<!--A dropdown list of students. Will be dynamically generated dep on Site Location. -->
 	                <lable for='scholar' class='labels'>Scholar Name</lable>
 	                <input type="text" class='form-control' name="scholar" placeholder="Enter Scholar's Name">
 	                <!-- Select options for student roster
@@ -96,30 +94,32 @@
 	            	-->
 	            </div>
 
-	            <div class='col-md-2'>
-	                <label for='duration' class='labels'>Time Spent</label>
-	                <input type="number" class='form-control' min='10' name="duration" placeholder="(Minutes)">
+	        </div>
+			<div class='row' STYLE='PADDING:10PX 0;'>
+	          	<div class='col-md-6'>
+	                <label for='math_topic'class='labels'>Math Topic</label>
+	                <input type="text" class='form-control' name="math_topic" placeholder="Math Topic/Model Discussed">
 	            </div>
 
-	          	<div class='col-md-5'>
-	                <label for='notes'class='labels'>Math Topic</label>
-	                <input type="text" class='form-control' name="math_topic" placeholder="Math Topic/Model discussed">
+	           	<div class='col-md-6'>
+	                <label for='duration' class='labels'>Session Duration</label>
+	                <input type="number" class='form-control' min='10' name="duration" placeholder="(Minutes)">
 	            </div>
 
 	          </div> <!--row-->
 	          <div class='row' STYLE='PADDING:10PX 0;'>
 
-	            <div class='col-md-4'>
+	            <div class='col-md-3'>
 	                <label for='notes'class='labels'>Scholar Ranking of Session</label>
 	                <input type="text" class='form-control' name="mentor_rank" placeholder="Rank session between 0-3">
 	            </div>
 
-	          	<div class='col-md-4'>
+	          	<div class='col-md-3'>
 	                <label for='notes'class='labels'>Mentor Ranking of Session</label>
 	                <input type="text" class='form-control' name="scholar_rank" placeholder="Rank session between 0-3">
 	            </div>
 
-	          	<div class='col-md-4'>
+	          	<div class='col-md-6'>
 	                <label for='notes'class='labels'>Notes</label>
 	                <input type="text" class='form-control' name="note" placeholder="(Optional)">
 	            </div>
