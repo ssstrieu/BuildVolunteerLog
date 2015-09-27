@@ -16,7 +16,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="/">BUILD Volunteer Log</a>
+	      <a class="navbar-brand" href="/">Welcome to the BUILD: Bridging Berkeley Volunteer Log</a>
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -55,7 +55,7 @@
 
 		{% endif %}
 		{% if signed_in==True %}
-		<H1>Please Log your Activity <span style='font-style: italic; color:red;'></span></h1>
+			<h1>Please log your activity!</h1>
 
 	    <form action='/submitLog' method='POST'>
 	        <div class='row' STYLE='PADDING:10PX 0;'>
@@ -69,7 +69,7 @@
 	                <select class='form-control' id='select' name='site'>
 	                    <option value='Longfellow'>Longfellow</option>
 
-	                    <!-- options for more school site --->
+	                    <!-- options for more school sites --->
 	                    
 	                    <!--
 	                    <option value='site_2'>School2</option>
@@ -80,18 +80,19 @@
 
 	                </select>
 	            </div>
-	            
+	        </div>
+	        <div class='row' STYLE='PADDING:10PX 0;'>
+	            <div class='col-md-6'>
+
+	                <lable for='mentor' class='labels'>Mentor Name</lable>
+	                <input type="text" class='form-control' name="mentor" placeholder="Please enter your name.">
+	                
+	            </div>
 	            <div class='col-md-6'>
 
 	                <lable for='scholar' class='labels'>Scholar Name</lable>
-	                <input type="text" class='form-control' name="scholar" placeholder="Enter Scholar's Name">
-	                <!-- Select options for student roster
-	                <select class='form-control' id='select' name='scholar'>
-	                    {% for s in students %}
-	                    	<option value= {{ s[5] }}>{{ s[5] }}</option>
-	                    {% endfor %}
-	                </select>
-	            	-->
+	                <input type="text" class='form-control' name="scholar" placeholder="Please enter Scholar's name.">
+	                
 	            </div>
 
 	        </div>
