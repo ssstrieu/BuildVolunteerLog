@@ -76,17 +76,28 @@ def submitform():
     #confirms the information before submission
     ###code this later
     #writes to sheet
+    #Melissa added these variables
+    math_topic=request.form.get('math_topic')
+    
+    mentor_rank=request.form.get('mentor_rank')
+    
+    scholar_rank=request.form.get('scholar_rank')
+    
+
     site=request.form.get('site')
     scholar=request.form.get('scholar')
     note=request.form.get('note')
     duration=int(request.form.get('duration'))
-    write_to_log(site,session['user_name'],scholar,duration,note)
+    write_to_log(site,session['user_name'],scholar,duration, math_topic, scholar_rank, mentor_rank, note)
     message='Thank you for submitting your activity.'
     students=pull_students('Berkeley') #change the site location here
     
+
+
+ 
     return render_template('index.html', students=students,message=message,signed_in=signed_in )
 
     
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5000)

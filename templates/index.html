@@ -50,48 +50,90 @@
 	<!-- The form the Volunteers fill out after signing in -->
 	<div class="container main">
 		{% if signed_in==False %}
-			<H1>Welcome to the BUILD Volunteer Log</H1>
+			<H1>Welcome to the BUILD-Bridging Berkeley Log</H1>
 			<h2>Please sign in with your BeConnected Account.</h2>
 
 		{% endif %}
 		{% if signed_in==True %}
-		<H1>Please Log your Volunteering Activity <span style='font-style: italic; color:red;'></span></h1>
+		<H1>Please Log your Mentor Activity <span style='font-style: italic; color:red;'></span></h1>
 
 	    <form action='/submitLog' method='POST' class="">
 	        <div class='row' STYLE='PADDING:10PX 0;'>
+	          	
+
 	          	<div class='col-md-3'>
 					<!--A dropdown list of students. Will be dynamically generated dep on Site Location... later -->
 	                <lable for='site' class='labels'>Site Location</lable>
 	                <select class='form-control' id='select' name='site'>
-	                    <option value='site_1'>School1</option>
+	                    <option value='site_1'>Longfellow</option>
+
+	                    <!-- options for more school site --->
+	                    
+	                    <!--
 	                    <option value='site_2'>School2</option>
 	                    <option value='site_3'>School3</option>
 	                    <option value='site_4'>School4</option>
-	                    <option value='site_5'>School5</option>
+	                    <option value='site_5'>School5</option> 
+	                	-->
+
 	                </select>
 	            </div>
+
+	        </div> <!--end row-->
 	            
-	            <div class='col-md-3'>
+	        <div class='row' STYLE='PADDING:10PX 0;'>
+	            
+	            <div class='col-md-5'>
 					<!--A dropdown list of students. Will be dynamically generated dep on Site Location. -->
 	                <lable for='scholar' class='labels'>Scholar Name</lable>
+	                <input type="text" class='form-control' name="scholar" placeholder="Enter Scholar's Name">
+	                <!-- Select options for student roster
 	                <select class='form-control' id='select' name='scholar'>
 	                    {% for s in students %}
 	                    	<option value= {{ s[5] }}>{{ s[5] }}</option>
 	                    {% endfor %}
 	                </select>
+	            	-->
 	            </div>
 
 	            <div class='col-md-2'>
 	                <label for='duration' class='labels'>Time Spent</label>
 	                <input type="number" class='form-control' min='10' name="duration" placeholder="(Minutes)">
 	            </div>
+
+	          	<div class='col-md-5'>
+	                <label for='notes'class='labels'>Math Topic</label>
+	                <input type="text" class='form-control' name="math_topic" placeholder="Math Topic/Model discussed">
+	            </div>
+
+	          </div> <!--row-->
+	          <div class='row' STYLE='PADDING:10PX 0;'>
+
 	            <div class='col-md-4'>
+	                <label for='notes'class='labels'>Scholar Ranking of Session</label>
+	                <input type="text" class='form-control' name="mentor_rank" placeholder="Rank session between 0-3">
+	            </div>
+
+	          	<div class='col-md-4'>
+	                <label for='notes'class='labels'>Mentor Ranking of Session</label>
+	                <input type="text" class='form-control' name="scholar_rank" placeholder="Rank session between 0-3">
+	            </div>
+
+	          	<div class='col-md-4'>
 	                <label for='notes'class='labels'>Notes</label>
 	                <input type="text" class='form-control' name="note" placeholder="(Optional)">
 	            </div>
 
-	          </div> <!--row-->
+
+
+	          </div>
+	          <!--end row-->
+
+
+
 	          <a href='#placeResults'><button class="showBtn btn btn-primary roundCorners" type="submit"><strong>Submit</strong></button></a>
+
+
         </form><!--/input-group -->
 	</div>
 	{% endif %}
