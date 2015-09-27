@@ -9,12 +9,12 @@ credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['
 gc = gspread.authorize(credentials)
 
 #submit form into to spreadsheet
-def write_to_log(site,mentor,scholar,duration,notes):
+def write_to_log(site,mentor,scholar,duration, math_topic, scholar_ranking, mentor_ranking, note):
   sh = gc.open("Master Log")
   worksheet = sh.sheet1
   date=str(datetime.datetime.now()).split(' ')[0]
   print date
-  values=[date,site,mentor,scholar,duration,notes]
+  values=[date,site,mentor,scholar,duration,math_topic, scholar_ranking, mentor_ranking, note]
   print values
   worksheet.append_row(values)
   
