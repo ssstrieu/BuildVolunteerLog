@@ -30,7 +30,10 @@ color: #fff;
 	font-weight: bold;
 
 }
+.row_spacing{
+	PADDING:10PX 0;
 
+}
 footer{
 	position: absolute;
 	bottom:1;

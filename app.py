@@ -85,24 +85,30 @@ def signin():
 
 @app.route('/submitLog',methods=['POST'])
 def submitform():
-    signed_in=True
-    #confirms the information before submission
-    ###code this later
-    #writes to sheet
-    #Melissa added these variables
-    math_topic=request.form.get('math_topic')
-    mentor_rank=int(request.form.get('mentor_rank'))
-    scholar_rank=int(request.form.get('scholar_rank'))
-    site=request.form.get('site')
-    mentor=request.form.get('mentor')
-    scholar=request.form.get('scholar')
-    note=request.form.get('note')
-    duration=int(request.form.get('duration'))
-    write_to_log(site,mentor,scholar,duration, math_topic, scholar_rank, mentor_rank, note)
-    message='Thank you for submitting your activity.'
-    # students=pull_students('Berkeley') #change the site location here
- 
-    return render_template('index.html',message=message,signed_in=signed_in )
+    try:
+        signed_in=True
+        #confirms the information before submission
+        ###code this later
+        #writes to sheet
+        #Melissa added these variables
+        math_topic=request.form.get('math_topic')
+        mentor_rank=int(request.form.get('mentor_rank'))
+        scholar_rank=int(request.form.get('scholar_rank'))
+        site=request.form.get('site')
+        mentor=request.form.get('mentor')
+        scholar=request.form.get('scholar')
+        note=request.form.get('note')
+        duration=int(request.form.get('duration'))
+        write_to_log(site,mentor,scholar,duration, math_topic, scholar_rank, mentor_rank, note)
+        post_success=True
+        message='Thank you for submitting your activity.'
+        # students=pull_students('Berkeley') #change the site location here
+     
+        return render_template('index.html',post_success=post_success,message=message,signed_in=signed_in )
+    except: 
+        message='Opps! Missing form data. Please fill out all the fields and try again.'
+        error_msg = True
+        return render_template('index.html',error_msg=error_msg,message=message,signed_in=signed_in )
 
     
 

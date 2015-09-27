@@ -21,11 +21,6 @@
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-			<!-- to do: only show this after volunteer is signed in 	
-			<ul class="nav navbar-nav navbar-right">
-	    		<li class=""><a href="#">Signed in as </a></li>
-	    	</ul> -->
 			
 			<!-- Button routes to the Google OAUTH -->	
 			{% if signed_in==False %}
@@ -36,7 +31,7 @@
 				</form> 
 			{% endif%}
 
-			{% if signed_in==True %}
+			{% if post_success==True %}
 				<div class='nav navbar-nav navbar-right' style='color:yellow;padding:15px;'> {{ message }}</div>
 			{% endif %}
 
@@ -49,24 +44,33 @@
 
 	<!-- The form the Volunteers fill out after signing in -->
 	<div class="container main">
-		{% if signed_in==False %}
+<!-- 		{% if signed_in==False %}
 			<H1>Welcome to the BUILD-Bridging Berkeley Log</H1>
 			<h2>Please sign in with your BeConnected Account.</h2>
 
-		{% endif %}
+		{% endif %} -->
 		{% if signed_in==True %}
-			<h1>Please log your activity!</h1>
+			
+<!-- This message displays when something is wrong with the form. -->
+	{% if error_msg==True %}
+	<div class="alert alert-danger alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		{{ message }}
+	</div>
+	{% endif %}
 
+<!-- Actual form here -->
+	<h1>Please log your activity!</h1>
 	    <form action='/submitLog' method='POST'>
 	        <div class='row' STYLE='PADDING:10PX 0;'>
 	          	<div class='col-md-3'>
 	          		<label for='date' class='labels'>Date</label>
-	                <input type="date" class='form-control' name="date" >
+	                <input type="date" class='form-control' name="date" required>
 	          	</div>
 
 	          	<div class='col-md-3'>
 	                <lable for='site' class='labels'>Site Location</lable>
-	                <select class='form-control' id='select' name='site'>
+	                <select class='form-control' id='select' name='site' required>
 	                    <option value='Longfellow'>Longfellow</option>
 
 	                    <!-- options for more school sites --->
@@ -81,43 +85,43 @@
 	                </select>
 	            </div>
 	        </div>
-	        <div class='row' STYLE='PADDING:10PX 0;'>
+	        <div class='row row_spacing'>
 	            <div class='col-md-6'>
 
 	                <lable for='mentor' class='labels'>Mentor Name</lable>
-	                <input type="text" class='form-control' name="mentor" placeholder="Please enter your name.">
+	                <input type="text" class='form-control' name="mentor" placeholder="Please enter your name." required>
 	                
 	            </div>
 	            <div class='col-md-6'>
 
 	                <lable for='scholar' class='labels'>Scholar Name</lable>
-	                <input type="text" class='form-control' name="scholar" placeholder="Please enter Scholar's name.">
+	                <input type="text" class='form-control' name="scholar" placeholder="Please enter Scholar's name." required>
 	                
 	            </div>
 
 	        </div>
-			<div class='row' STYLE='PADDING:10PX 0;'>
+			<div class='row row_spacing'>
 	          	<div class='col-md-6'>
 	                <label for='math_topic'class='labels'>Math Topic</label>
-	                <input type="text" class='form-control' name="math_topic" placeholder="Math Topic/Model Discussed">
+	                <input type="text" class='form-control' name="math_topic" placeholder="Math Topic/Model Discussed" required>
 	            </div>
 
 	           	<div class='col-md-6'>
 	                <label for='duration' class='labels'>Session Duration</label>
-	                <input type="number" class='form-control' min='10' name="duration" placeholder="(Minutes)">
+	                <input type="number" class='form-control' min='5' name="duration" placeholder="(Minutes)" required>
 	            </div>
 
-	          </div> <!--row-->
-	          <div class='row' STYLE='PADDING:10PX 0;'>
+	          </div> <!--end row-->
+	          <div class='row row_spacing' >
 
 	            <div class='col-md-3'>
 	                <label for='notes'class='labels'>Scholar Ranking of Session</label>
-	                <input type="text" class='form-control' name="mentor_rank" placeholder="Rank session between 0-3">
+	                <input type="number" min='0' max='3' class='form-control' name="mentor_rank" placeholder="Rank session between 0-3" required>
 	            </div>
 
 	          	<div class='col-md-3'>
 	                <label for='notes'class='labels'>Mentor Ranking of Session</label>
-	                <input type="text" class='form-control' name="scholar_rank" placeholder="Rank session between 0-3">
+	                <input type="number" min='0' max='3' class='form-control' name="scholar_rank" placeholder="Rank session between 0-3" required>
 	            </div>
 
 	          	<div class='col-md-6'>
@@ -126,14 +130,9 @@
 	            </div>
 
 
-
-	          </div>
-	          <!--end row-->
-
-
+	          </div><!--end row-->
 
 	          <a href='#placeResults'><button class="showBtn btn btn-primary roundCorners" type="submit"><strong>Submit</strong></button></a>
-
 
         </form><!--/input-group -->
 	</div>
