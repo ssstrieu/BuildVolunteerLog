@@ -1,15 +1,15 @@
 <html>
 <head>
-	<title>BUILD: Volunteer Log</title>
+	<title>BUILD Bridging Berkeley Log</title>
 	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
 	<link href="../static/css/style.css" rel="stylesheet">
-	<link rel="shortcut icon" href="../static/img/books.ico">
+	<link rel="shortcut icon" href="../static/img/book.ico">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
 <!-- Bootstrap collapsible navbar -->
 	<nav class="navbar navbar-inverse navbar-default navbar-fixed-top">
 	  <div class="container-fluid">
-	      <a class="navbar-brand" href="/">Welcome to the BUILD Volunteer Log</a>
+	      <a class="navbar-brand" href="/">Welcome to BUILD Bridging Berkeley Log</a>
 	  </div><!-- /.container-fluid -->
 	</nav>
 </head>
@@ -35,7 +35,7 @@
 	{% endif%}
 
 <!-- Actual form here -->
-	<h1> Please log your activity! <span class='glyphicon glyphicon-pencil'></span></h1>
+	<h1> Please Log your Mentor Activity <span class='glyphicon glyphicon-pencil'></span></h1>
 	    <form action='/submitLog' method='POST'>
 	        <div class='row' STYLE='PADDING:10PX 0;'>
 	          	<div class='col-md-3'>
@@ -45,26 +45,9 @@
 
 	          	<div class='col-md-3'>
 	                <lable for='site' class='labels'>Site Location</lable>
-<<<<<<< HEAD
 	                <select class='form-control' id='select' name='site'>
 	                    <option value='site_1'>Longfellow</option>
 	                    <option value='site_2'>Young Adult Project</option>
-=======
-	                <select class='form-control' id='select' name='site' required>
-	                    <option value='Longfellow'>Longfellow</option>
->>>>>>> master
-
-	                    <!-- options for more school sites 
-	                    
-<<<<<<< HEAD
-	                    <!--
-	                    
-=======
-	                    <option value='site_2'>School2</option>
->>>>>>> master
-	                    <option value='site_3'>School3</option>
-
-	                	-->
 	                </select>
 	            </div>
 	        </div>
@@ -75,18 +58,9 @@
 	                <input type="text" class='form-control' name="mentor" placeholder="Please enter your name" required>
 	                
 	            </div>
-	            <div class='col-md-6'>
 
-<<<<<<< HEAD
-	            <div class='col-md-2'>
-	                <label for='duration' class='labels'>Time Spent Together in Minutes</label>
-	                <input type="number" class='form-control' min='10' name="duration" placeholder="(Minutes)">
-	            </div>
 
 	          	<div class='col-md-5'>
-	                <label for='notes'class='labels'>Topic Discussed</label>
-	                <input type="text" class='form-control' name="math_topic" placeholder="Math Topic or Other topic discussed">
-=======
 	                <lable for='scholar' class='labels'>Scholar Name</lable>
 	                <input type="text" class='form-control' name="scholar" placeholder="Please enter Scholar's name" required>
 	                
@@ -95,13 +69,12 @@
 	        </div>
 			<div class='row row_spacing'>
 	          	<div class='col-md-6'>
-	                <label for='math_topic'class='labels'><span class='glyphicon glyphicon-book'></span> Math Topic</label>
-	                <input type="text" class='form-control' name="math_topic" placeholder="Math Topic/Model Discussed" required>
->>>>>>> master
+	                <label for='math_topic'class='labels'><span class='glyphicon glyphicon-book'></span> Topics Discussed</label>
+	                <input type="text" class='form-control' name="math_topic" placeholder="Math Topic or Other topic discussed" required>
 	            </div>
 
 	           	<div class='col-md-6'>
-	                <label for='duration' class='labels'><span class='glyphicon glyphicon-time'></span> Session Duration</label>
+	                <label for='duration' class='labels'><span class='glyphicon glyphicon-time'></span> Time Spent Together in Minutes</label>
 	                <input type="number" class='form-control' min='0' max='60' name="duration" placeholder="(Minutes)" required>
 	            </div>
 
@@ -139,8 +112,7 @@
     <script src="../static/js/bootstrap.min.js"></script>
     <script src="../static/js/main.js"></script>
 </body>
-<<<<<<< HEAD
+
 
 <footer>Berkeley Unified in Literacy Development 2015</footer>
-=======
->>>>>>> master
+
