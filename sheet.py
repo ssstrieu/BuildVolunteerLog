@@ -22,15 +22,15 @@ def write_to_log(site,mentor,scholar,duration, math_topic, scholar_ranking, ment
 
 
 #filter out the students at your desired site location
-def pull_students(site):
-    sh = gc.open("Student_ref")
-    worksheet = sh.sheet1
-    students_at_site=[]
+# def pull_students(site):
+#     sh = gc.open("Student_ref")
+#     worksheet = sh.sheet1
+#     students_at_site=[]
 
-    for row in worksheet.get_all_values():
-        if row[5].upper()==site.upper():
-            students_at_site.append(row)
+#     for row in worksheet.get_all_values():
+#         if row[5].upper()==site.upper():
+#             students_at_site.append(row)
 
-    print students_at_site
-    return students_at_site
-    #students= pull_students('Berkeley') 
+#     print students_at_site
+#     return students_at_site
+#     #students= pull_students('Berkeley') 
