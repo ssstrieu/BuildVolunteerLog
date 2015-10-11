@@ -16,16 +16,17 @@
 
 <body>
 
-	<!-- The form the Volunteers fill out after signing in -->
-	<div class="container main">
+<!-- The form the Volunteers fill out after signing in -->
+<div class="container main">
 			
 <!-- This message displays when something is wrong with the form. -->
-	{% if error_msg==True %}
+	{% if post_success==False %}
 	<div class="alert alert-danger alert-dismissible" role="alert">
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		{{ message }}
 	</div>
 	{% endif %}
+	
 <!-- This message displays when the form has posted successfully. -->
 	{% if post_success==True %}
 	<div class="alert alert-success alert-dismissible" role="alert">
@@ -46,8 +47,8 @@
 	          	<div class='col-md-3'>
 	                <lable for='site' class='labels'>Site Location</lable>
 	                <select class='form-control' id='select' name='site'>
-	                    <option value='site_1'>Longfellow</option>
-	                    <option value='site_2'>Young Adult Project</option>
+	                    <option value='Longfellow'>Longfellow</option>
+	                    <option value='Young Adult Project'>Young Adult Project</option>
 	                </select>
 	            </div>
 	        </div>
@@ -56,9 +57,7 @@
 
 	                <lable for='mentor' class='labels'><span class='glyphicon glyphicon-user'></span> Mentor Name</lable>
 	                <input type="text" class='form-control' name="mentor" placeholder="Please enter your name" required>
-	                
 	            </div>
-
 
 	          	<div class='col-md-5'>
 	                <lable for='scholar' class='labels'>Scholar Name</lable>
@@ -102,11 +101,6 @@
 
         </form><!--/input-group -->
 	</div>
-
-
-        
-
-
 
 	<script src="../static/js/jquery-1.11.3.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
