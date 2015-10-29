@@ -88,6 +88,7 @@ def submitform():
     scholar=request.form.get('scholar')
     note=request.form.get('note')
     duration=int(request.form.get('duration'))
+    absences=int(request.form.get('absences'))
     write_to_log(site,session['user_name'],scholar,duration, math_topic, scholar_rank, mentor_rank, note)
     message='Thank you for submitting your activity.'
     students=pull_students('Berkeley') #change the site location here
