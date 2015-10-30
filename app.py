@@ -38,7 +38,6 @@ def submitform():
         write_to_log(site,mentor,scholar,duration, math_topic, scholar_rank, mentor_rank, note)
         post_success=True
         message='Thank you for submitting your activity.'
-        # students=pull_students('Berkeley') #change the site location here
      
         return render_template('index.html',post_success=post_success,message=message)
     except: 
