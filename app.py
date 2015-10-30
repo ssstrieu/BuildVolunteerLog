@@ -35,7 +35,8 @@ def submitform():
         scholar=request.form.get('scholar')
         note=request.form.get('note')
         duration=int(request.form.get('duration'))
-        write_to_log(site,mentor,scholar,duration, math_topic, scholar_rank, mentor_rank, note)
+        absences=request.form.get('absences')
+        write_to_log(site,mentor,absences,scholar,duration, math_topic, scholar_rank, mentor_rank, note)
         post_success=True
         message='Thank you for submitting your activity.'
      
@@ -44,7 +45,6 @@ def submitform():
         post_success=False
         message='Opps! Missing form data. Please fill out all the fields and try again.'
         return render_template('index.html',post_success=post_success,message=message)
-
     
 
 if __name__ == "__main__":
