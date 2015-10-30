@@ -35,8 +35,10 @@ def submitform():
         scholar=request.form.get('scholar')
         note=request.form.get('note')
         duration=int(request.form.get('duration'))
-        absences=request.form.get('absences')
+        absences=int(request.form.get('absences'))
+        print absences,mentor, 'not yet in log'
         write_to_log(site,mentor,absences,scholar,duration, math_topic, scholar_rank, mentor_rank, note)
+        print 'Written to log'
         post_success=True
         message='Thank you for submitting your activity.'
      

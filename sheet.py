@@ -7,18 +7,18 @@ scope = ['https://spreadsheets.google.com/feeds']
 
 credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'], scope)
 gc = gspread.authorize(credentials)
-
+# print 'JSON KEY============',json_key
+# print 'CREDS+++++++++++++',credentials
 #submit form into to spreadsheet
-def write_to_log(site,mentor,scholar,duration, math_topic, scholar_ranking, mentor_ranking, note):
-  sh = gc.open("Master Log")
-  worksheet = sh.sheet1
+def write_to_log(site,mentor,absences,scholar,duration, math_topic, scholar_ranking, mentor_ranking, note):
+  sh = gc.open("Bridging Berkeley Session Tracker").sheet1
   date=str(datetime.datetime.now()).split(' ')[0]
   print date
-  values=[date,site,mentor,scholar,duration,math_topic, scholar_ranking, mentor_ranking, note]
+  values=[date,site,mentor,absences,scholar,duration,math_topic, scholar_ranking, mentor_ranking, note]
   print values
-  worksheet.append_row(values)
+  sh.append_row(values)
   
-# TEST write_to_log('Berkeley','Melissa','Sam',10,'reading books')
+#write_to_log('test',1,1,1,1,1,1,1,1)
 
 
 #filter out the students at your desired site location
