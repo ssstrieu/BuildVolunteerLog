@@ -1,17 +1,12 @@
-
-
-
 $( document ).ready(function(){
     console.log('=======document is now ready!!!!!======');
     
     // $( "#datepicker" ).datepicker();
     
-    
     $('#clearFormBtn').on('click', function(){
         //This returns the form to default entries
         console.log('=======Clear Form clicked======');
         $('#logForm')[0].reset();
-        
     });
 
     
@@ -28,9 +23,6 @@ $( document ).ready(function(){
         
     })
         
-        
- 
-//   getAbsenceValue();
    
  }); //document-ready close
 

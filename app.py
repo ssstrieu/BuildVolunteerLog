@@ -30,9 +30,8 @@ def submitform():
         site=request.form.get('site')
         mentor=request.form.get('mentor')
         scholar=request.form.get('scholar')
-        print 'THIS IS THE THE CHECKBOX====>', request.form.get('absenceCheck')
         absence=0
-        if request.form.get('absenceCheck'): #not sure waht absenceCheck returns
+        if request.form.get('absenceCheck'): #absenceCheck returns 'checked' or None
             absence=1
         isDropin=request.form.get('isDropin')
         math_topic=request.form.get('math_topic')
@@ -56,6 +55,5 @@ def submitform():
     
 
 if __name__ == "__main__":
-    #app.run(host=os.environ['IP'],port=int(os.environ['PORT']))
     app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080))) #for running in cloud9
-    # app.run(debug=True, port=5000)  for running in local/heroku
+    # app.run(debug=True, port=5000)  
