@@ -4,23 +4,29 @@ from oauth2client.client import SignedJwtAssertionCredentials
 
 json_key = json.load(open('spreadsheet_credentials.json'))
 scope = ['https://spreadsheets.google.com/feeds']
-
 credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'], scope)
 gc = gspread.authorize(credentials)
-# print 'JSON KEY============',json_key
-# print 'CREDS+++++++++++++',credentials
-#submit form into to spreadsheet
-def write_to_log(site,mentor,absences,scholar,duration, math_topic, scholar_ranking, mentor_ranking, note):
-  sh = gc.open("Bridging Berkeley Session Tracker").sheet1
+
+######Post to Test Sheet
+def writeToLog(site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note):
+  sh = gc.open("TEST Session Tracker").sheet1
   date=str(datetime.datetime.now()).split(' ')[0]
   print date
-  values=[date,site,mentor,absences,scholar,duration,math_topic, scholar_ranking, mentor_ranking, note]
+  values=[date,site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note]
   print values
   sh.append_row(values)
   
-#write_to_log('test',1,1,1,1,1,1,1,1)
+######Post to Production Sheet
+# def writeToLog(site,mentor,absences,scholar,duration, math_topic, scholar_ranking, mentor_ranking, note):
+#   sh = gc.open("Bridging Berkeley Session Tracker").sheet1
+#   date=str(datetime.datetime.now()).split(' ')[0]
+#   print date
+#   values=[date,site,mentor,absences,scholar,duration,math_topic, scholar_ranking, mentor_ranking, note]
+#   print values
+#   sh.append_row(values)
+  
 
-
+###For use in pre-populated forms- TBA
 #filter out the students at your desired site location
 # def pull_students(site):
 #     sh = gc.open("Student_ref")

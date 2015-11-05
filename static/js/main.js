@@ -1,12 +1,52 @@
+
+
+
 $( document ).ready(function(){
-  console.log('=======document is now ready!!!!!======');
-   $(function() {
-   $( "#datepicker" ).datepicker();
-  });
-
+    console.log('=======document is now ready!!!!!======');
+    
+    // $( "#datepicker" ).datepicker();
+    
+    
+    $('#clearFormBtn').on('click', function(){
+        //This returns the form to default entries
+        console.log('=======Clear Form clicked======');
+        $('#logForm')[0].reset();
+        
+    });
+    
+    // function getAbsenceValue(){
+    //     if ($('#absenceCheck').prop('checked')== true){
+    //         var absence =1;
+    //         console.log('absence value: '+absence);
+    //         return absence;
+    //     } else{
+    //         var absence =0;
+    //         console.log('absence value: '+absence);
+    //         return absence;
+    //     }
+    // }
+    
+    
+    $('#studentAbsentBtn').on('click', function(){
+        // When the absence button is clicked, this code prefills the form with 'N/A' and absenceCount+1
+        console.log('=======Absence clicked======');
+        $('#matchedStudent').prop('checked',true);
+        $('#absenceCheck').css('display','inline').prop('checked', true);
+        $('#math_topic').val('N/A');
+        $('#duration').val('0');
+        $('#mentor_rank').val('0');
+        $('#scholar_rank').val('0');
+        $('#notes').val('Student absent.')
+        
+        
+        
+        
+        
+    })
+        
+        
  
-
-
-  
- }) //document-ready close
+//   getAbsenceValue();
+   
+ }); //document-ready close
 

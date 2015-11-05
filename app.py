@@ -1,4 +1,4 @@
-import requests, gspread
+import requests, gspread,os
 from flask import Flask, request, redirect, render_template
 from flask_httpauth import HTTPBasicAuth
 from sheet import *
@@ -35,9 +35,10 @@ def submitform():
         scholar=request.form.get('scholar')
         note=request.form.get('note')
         duration=int(request.form.get('duration'))
-        absences=int(request.form.get('absences'))
+        absence=int(request.form.get('absence'))
+        isDropin=request.form.get('isDropin')
         print absences,mentor, 'not yet in log'
-        write_to_log(site,mentor,absences,scholar,duration, math_topic, scholar_rank, mentor_rank, note)
+        writeToLog(site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note)
         print 'Written to log'
         post_success=True
         message='Thank you for submitting your activity.'
@@ -50,4 +51,5 @@ def submitform():
     
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080))) #for running in cloud9
+    # app.run(debug=True, port=5000)  for running in local/heroku
