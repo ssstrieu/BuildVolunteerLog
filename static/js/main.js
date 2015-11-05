@@ -13,19 +13,7 @@ $( document ).ready(function(){
         $('#logForm')[0].reset();
         
     });
-    
-    // function getAbsenceValue(){
-    //     if ($('#absenceCheck').prop('checked')== true){
-    //         var absence =1;
-    //         console.log('absence value: '+absence);
-    //         return absence;
-    //     } else{
-    //         var absence =0;
-    //         console.log('absence value: '+absence);
-    //         return absence;
-    //     }
-    // }
-    
+
     
     $('#studentAbsentBtn').on('click', function(){
         // When the absence button is clicked, this code prefills the form with 'N/A'

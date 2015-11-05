@@ -13,16 +13,15 @@ def writeToLog(site,mentor,scholar,absence,isDropin,duration, math_topic, mentor
   date=str(datetime.datetime.now()).split(' ')[0]
   print date
   values=[date,site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note]
-  print values
+  print 'values in sheet.py ',values
   sh.append_row(values)
   
 ######Post to Production Sheet
-# def writeToLog(site,mentor,absences,scholar,duration, math_topic, scholar_ranking, mentor_ranking, note):
+# def writeToLog(site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note):
 #   sh = gc.open("Bridging Berkeley Session Tracker").sheet1
 #   date=str(datetime.datetime.now()).split(' ')[0]
-#   print date
-#   values=[date,site,mentor,absences,scholar,duration,math_topic, scholar_ranking, mentor_ranking, note]
-#   print values
+#   values=[date,site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note]
+#   print 'values in sheet.py ===> ',values
 #   sh.append_row(values)
   
 

@@ -112,9 +112,9 @@
 				</div>
 	            
 	      <div class='col-md-4 studentTypeFields'>
-		        <input type="radio" name="isDropin" value="True" id='dropinStudent' checked> <label for='dropinStudent'>Drop-In Student?</label>
+		        <input type="radio" name="isDropin" value="True" id='dropinStudent'> <label for='dropinStudent'>Drop-In Student?</label>
 	  				<br>
-	 					<input type="radio" name="isDropin" value='False' id='matchedStudent'> <label for="matchedStudent">Matched Student?</label>
+	 					<input type="radio" name="isDropin" value='False' id='matchedStudent' checked> <label for="matchedStudent">Matched Student?</label>
 	 					<br>
 	 					<label id='absenceCheckField'><input type="checkbox" name="absenceCheck" id="absenceCheck"> Student Absent?</label>
  				</div> <!--/ .studentTypeFields-->
@@ -137,11 +137,11 @@
 				
 				<div class='col-md-3'>
 	                <label for='mentor_rank' class='labels'><span class='glyphicon glyphicon-heart'></span> Mentor Ranking of Session</label>
-	                <input type="number" class='form-control' id="mentor_rank" name="mentor_rank" placeholder="Rank session between 0-3" required>
+	                <input type="number" min='0' max='3' class='form-control' id="mentor_rank" name="mentor_rank" placeholder="Rank session between 0-3" required>
 	            </div>
 	            <div class='col-md-3'>
 	                <label for='scholar_rank' class='labels'> Scholar Ranking of Session </label>
-	                <input type="number" class='form-control' id="scholar_rank" name="scholar_rank" placeholder="Rank session between 0-3" required>
+	                <input type="number" min='0' max='3' class='form-control' id="scholar_rank" name="scholar_rank" placeholder="Rank session between 0-3" required>
 	            </div>
 
 	          	<div class='col-md-6'>
