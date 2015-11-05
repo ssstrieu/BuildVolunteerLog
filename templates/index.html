@@ -7,19 +7,61 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
 <!-- Bootstrap collapsible navbar -->
-	<nav class="navbar navbar-inverse navbar-default navbar-fixed-top">
-	  <div class="container-fluid">
-	      <a class="navbar-brand" href="/">Welcome to BUILD Bridging Berkeley Log</a>
-	  </div><!-- /.container-fluid -->
-	</nav>
+	<nav class="navbar navbar-default navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">BUILD Bridging Berkeley Log</a>
+      <!--This is the hamburger menu icon:-->
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!--end hamburger menu icon-->
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><!-- link to trigger modal -->
+	      <span class='navbar-text navbar-right' data-toggle="modal" data-target="#helpModal" ><span class='glyphicon glyphicon-question-sign'></span> Help</span>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 </head>
 
 <body>
+<!--Help Modal -->
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Help with BUILD Session Tracker</h4>
+      </div>
+      <div class="modal-body">
+      <h4>Student Absent Button </h4>
+      <p> This button fills out the second half of the form for you. You still need to fill out the names, date and location. Press 'Submit' to send the form information.
+      </p>
+      <br/>
+      <h4>Report Issues </h4>
+      <p>For any issues with the form, contact Melissa at <a href='mailto://melissa.fabros@gmail.com'><em>melissa.fabros@gmail.com</a></em>. <br /> Please include any error messages or screenshots.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- The form the Volunteers fill out after signing in -->
+<!--end Help Modal-->
+
 <div class="container main">
 			
-<!-- This message displays when something is wrong with the form. -->
+<!-- This message displays when something is wrong with the form submission. -->
 	{% if post_success==False %}
 	<div class="alert alert-danger alert-dismissible" role="alert">
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -35,78 +77,84 @@
 	</div>
 	{% endif%}
 
-<!-- Actual form here -->
-	<h1> Please Log your Mentor Activity <span class='glyphicon glyphicon-pencil'></span></h1>
-	    <form action='/submitLog' method='POST'>
-	        <div class='row' STYLE='PADDING:10PX 0;'>
-	          	<div class='col-md-3'>
-	          		<label for='date' class='labels'><span class='glyphicon glyphicon-calendar'></span> Date</label>
-	                <input type="date" class='form-control' name="date" required>
-	          	</div>
-
-	          	<div class='col-md-3'>
-	                <lable for='site' class='labels'>Site Location</lable>
-	                <select class='form-control' id='select' name='site'>
-	                    <option value='Longfellow'>Longfellow</option>
-	                    <option value='Young Adult Project'>Young Adult Project</option>
-	                </select>
-	            </div>
-	        </div>
-	        <div class='row row_spacing'>
-	            <div class='col-md-5'>
-
-	                <lable for='mentor' class='labels'><span class='glyphicon glyphicon-user'></span> Mentor Name</lable>
-	                <input type="text" class='form-control' name="mentor" placeholder="Please enter your name" required>
-	            </div>
-	           
-	           	<div class='col-md-2'>
-	                <label for='absences' class='labels'>Student Absent?</label>
-	                <select class='form-control' id='select' name='absences'>
-	                    <option value='1'>Yes</option>
-	                    <option value='0'>No</option>
-	                </select>
-	            </div>
-
-	          	<div class='col-md-5'>
-	                <lable for='scholar' class='labels'>Scholar Name</lable>
-	                <input type="text" class='form-control' name="scholar" placeholder="Please enter Scholar's name" required>
-	                
-	            </div>
-
-	        </div>
+<!-- form body here -->
+	<h1> Please Log your Activity <span class='glyphicon glyphicon-pencil'></span></h1>
+	    <form action='/submitLog' method='POST' id='logForm'>
+			<div class='row row_spacing'>
+		        <div class='col-md-8'>
+			        <div class='row '>
+			          	<div class='col-md-6'>
+			          		<label for='date' class='labels'><span class='glyphicon glyphicon-calendar'></span> Date</label>
+			                <input type="date" class='form-control' name="date" required>
+			          	</div>
+		
+			          	<div class='col-md-6'>
+			                <label for='site' class='labels'>Site Location</label>
+			                <select class='form-control' id='select' name='site'>
+			                    <option value='Longfellow'>Longfellow</option>
+			                    <option value='Young Adult Project'>Young Adult Project</option>
+			                </select>
+			            </div>
+			        </div>
+		            <div class='row subrowSpacing'>
+			            <div class='col-md-6'>
+		
+			                <label for='mentor' class='labels'><span class='glyphicon glyphicon-user'></span> Mentor Name</label>
+			                <input type="text" class='form-control' name="mentor" placeholder="Please enter your name" required>
+			            </div>
+		
+			          	<div class='col-md-6'>
+			                <label for='scholar' class='labels'>Scholar Name</label>
+			                <input type="text" class='form-control' name="scholar" placeholder="Please enter Scholar's name" required>
+			                
+			            </div>
+		            </div>
+				</div>
+	            
+	      <div class='col-md-4 studentTypeFields'>
+		        <input type="radio" name="matchedStudent" value="True" id='dropinStudent' checked> <label for='dropinStudent'>Drop-In Student?</label>
+	  				<br>
+	 					<input type="radio" name="matchedStudent" value='False' id='matchedStudent'> <label for="matchedStudent">Matched Student?</label>
+	 					<br>
+	 					<label id='absenceCheckField'><input type="checkbox" name="absenceCheck" id="absenceCheck"> Student Absent?</label>
+ 				</div> <!--/ .studentTypeFields-->
+				
+	    </div>
 			<div class='row row_spacing'>
 	          	<div class='col-md-6'>
-	                <label for='math_topic'class='labels'><span class='glyphicon glyphicon-book'></span> Topics Discussed</label>
-	                <input type="text" class='form-control' name="math_topic" placeholder="Math Topic or Other topic discussed" required>
+	                <label for='math_topic' class='labels'><span class='glyphicon glyphicon-book'></span> Topics Discussed</label>
+	                <input type="text" class='form-control' name="math_topic" id="math_topic" placeholder="Math Topic or Other Topic discussed" required>
 	            </div>
 
 	           	<div class='col-md-6'>
 	                <label for='duration' class='labels'><span class='glyphicon glyphicon-time'></span> Time Spent Together in Minutes</label>
-	                <input type="number" class='form-control' min='0' max='60' name="duration" placeholder="(Minutes)" required>
+	                <input type="number" class='form-control' min='0' max='60' id="duration" name="duration" placeholder="(Minutes)" required>
 	            </div>
 
-	          </div> <!--row-->
+	          </div> <!--end row-->
 	          
 	          <div class='row row_spacing' >
+				
 				<div class='col-md-3'>
-	                <label for='notes'class='labels'><span class='glyphicon glyphicon-heart'></span> Mentor Ranking of Session</label>
-	                <input type="number" min='0' max='3' class='form-control' name="scholar_rank" placeholder="Rank session between 0-3" required>
+	                <label for='mentor_rank' class='labels'><span class='glyphicon glyphicon-heart'></span> Mentor Ranking of Session</label>
+	                <input type="number" class='form-control' id="mentor_rank" name="mentor_rank" placeholder="Rank session between 0-3" required>
 	            </div>
-
 	            <div class='col-md-3'>
-	                <label for='notes'class='labels'>Scholar Ranking of Session</label>
-	                <input type="number" min='0' max='3' class='form-control' name="mentor_rank" placeholder="Rank session between 0-3" required>
+	                <label for='scholar_rank' class='labels'> Scholar Ranking of Session </label>
+	                <input type="number" class='form-control' id="scholar_rank" name="scholar_rank" placeholder="Rank session between 0-3" required>
 	            </div>
 
 	          	<div class='col-md-6'>
-	                <label for='notes'class='labels'>Notes</label>
-	                <input type="text" class='form-control' name="note" placeholder="(Optional)">
+	                <label for='notes' class='labels'>Notes</label>
+	                <input type="text" class='form-control' id="notes" name="notes" placeholder="(Optional)">
 	            </div>
-
-
 	          </div><!--end row-->
-
-	          <a href='#placeResults'><button class="showBtn btn btn-primary roundCorners" type="submit" style='margin-top:10px;'><strong>Submit</strong></button></a>
+	          
+			<div class='button_row row'>
+		       		<button class="showBtn btn btn-primary roundCorners" type="submit" id='submitBtn' ><strong>Submit</strong></button>
+	            	<span class="showBtn btn btn-warning roundCorners" id='studentAbsentBtn'><strong>Student Absent</strong></span> 
+		       		<span class="showBtn btn btn-danger roundCorners" id='clearFormBtn' ><strong>Clear Form</strong></span>
+	        </div>
 
         </form><!--/input-group -->
 	</div>
