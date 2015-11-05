@@ -28,7 +28,7 @@ $( document ).ready(function(){
     
     
     $('#studentAbsentBtn').on('click', function(){
-        // When the absence button is clicked, this code prefills the form with 'N/A' and absenceCount+1
+        // When the absence button is clicked, this code prefills the form with 'N/A'
         console.log('=======Absence clicked======');
         $('#matchedStudent').prop('checked',true);
         $('#absenceCheck').css('display','inline').prop('checked', true);
@@ -37,10 +37,6 @@ $( document ).ready(function(){
         $('#mentor_rank').val('0');
         $('#scholar_rank').val('0');
         $('#notes').val('Student absent.')
-        
-        
-        
-        
         
     })
         

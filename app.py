@@ -1,4 +1,4 @@
-import requests, gspread,os
+import requests, gspread, os
 from flask import Flask, request, redirect, render_template
 from flask_httpauth import HTTPBasicAuth
 from sheet import *
@@ -27,19 +27,23 @@ def index():
 @app.route('/submitLog',methods=['POST'])
 def submitform():
     try:
-        math_topic=request.form.get('math_topic')
-        mentor_rank=int(request.form.get('mentor_rank'))
-        scholar_rank=int(request.form.get('scholar_rank'))
         site=request.form.get('site')
         mentor=request.form.get('mentor')
         scholar=request.form.get('scholar')
-        note=request.form.get('note')
-        duration=int(request.form.get('duration'))
-        absence=int(request.form.get('absence'))
+        absence=0
+        if request.form.get('absenceCheck'): #not sure waht absenceCheck returns
+            absence=1
         isDropin=request.form.get('isDropin')
-        print absences,mentor, 'not yet in log'
+        math_topic=request.form.get('math_topic')
+        duration=int(request.form.get('duration'))
+        mentor_rank=int(request.form.get('mentor_rank'))
+        scholar_rank=int(request.form.get('scholar_rank'))
+        note=request.form.get('note')
+        
+
+        #print absence,mentor, 'not yet in log'
         writeToLog(site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note)
-        print 'Written to log'
+        #print 'Written to log'
         post_success=True
         message='Thank you for submitting your activity.'
      
@@ -51,5 +55,6 @@ def submitform():
     
 
 if __name__ == "__main__":
+    #app.run(host=os.environ['IP'],port=int(os.environ['PORT']))
     app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080))) #for running in cloud9
     # app.run(debug=True, port=5000)  for running in local/heroku
