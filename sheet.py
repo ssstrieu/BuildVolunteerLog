@@ -7,22 +7,34 @@ scope = ['https://spreadsheets.google.com/feeds']
 credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'], scope)
 gc = gspread.authorize(credentials)
 
-# ######Post to Test Sheet
+######Post to Test Sheet
 # def writeToLog(site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note):
 #   sh = gc.open("TEST Session Tracker").sheet1
 #   date=str(datetime.datetime.now()).split(' ')[0]
+#   print date
 #   values=[date,site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note]
 #   print 'values in sheet.py ',values
 #   sh.append_row(values)
   
-#####Post to Production Sheet
+######Post to prod Sheet
 def writeToLog(site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note):
   sh = gc.open("Bridging Berkeley Session Tracker").sheet1
   date=str(datetime.datetime.now()).split(' ')[0]
+  print date
   values=[date,site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note]
-  print 'values in sheet.py ===> ',values
+  print 'values in sheet.py ',values
   sh.append_row(values)
   
+
+# def pull_data():
+#     sh = gc.open("Bridging Berkeley Session Tracker")
+#     worksheet = sh.sheet1
+#     students_at_site=[]
+#     for row in worksheet.get_all_values():
+#         students_at_site.append(row)
+#     print 'reading from sheet==== ',students_at_site
+
+# pull_data()
 
 ###For use in pre-populated forms- TBA
 #filter out the students at your desired site location
