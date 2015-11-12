@@ -2,15 +2,12 @@ import requests, gspread, os
 from flask import Flask, request, redirect, render_template
 from flask_httpauth import HTTPBasicAuth
 from sheet import *
+from users import *
 
 app = Flask(__name__) 
-app.secret_key = 'thisisasecret'
-
-GOOGLE_CLIENT_ID = '834450588178-tmqi729odq8h0vkbik3rk9rm4no4aqgp.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = 'epOQT9krb6yKrkj7tu74PBEy'
+app.secret_key = secret
 auth = HTTPBasicAuth()
 
-users = {"build": "volunteer"}
 
 @auth.get_password
 def get_pw(username):
