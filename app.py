@@ -2,7 +2,7 @@ import requests, gspread, os
 from flask import Flask, request, redirect, render_template
 from flask_httpauth import HTTPBasicAuth
 from sheet import *
-from users import *
+from secrets import *
 
 app = Flask(__name__) 
 app.secret_key = secret
