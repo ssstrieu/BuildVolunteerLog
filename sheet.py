@@ -4,33 +4,49 @@ from oauth2client.client import SignedJwtAssertionCredentials
 
 json_key = json.load(open('spreadsheet_credentials.json'))
 scope = ['https://spreadsheets.google.com/feeds']
-
 credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'], scope)
 gc = gspread.authorize(credentials)
 
-#submit form into to spreadsheet
-def write_to_log(site,mentor,scholar,duration, math_topic, scholar_ranking, mentor_ranking, note):
-  sh = gc.open("Master Log")
-  worksheet = sh.sheet1
+######Post to Test Sheet
+# def writeToLog(site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note):
+#   sh = gc.open("TEST Session Tracker").sheet1
+#   date=str(datetime.datetime.now()).split(' ')[0]
+#   print date
+#   values=[date,site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note]
+#   print 'values in sheet.py ',values
+#   sh.append_row(values)
+  
+######Post to prod Sheet
+def writeToLog(site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note):
+  sh = gc.open("Bridging Berkeley Session Tracker").sheet1
   date=str(datetime.datetime.now()).split(' ')[0]
   print date
-  values=[date,site,mentor,scholar,duration,math_topic, scholar_ranking, mentor_ranking, note]
-  print values
-  worksheet.append_row(values)
+  values=[date,site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note]
+  print 'values in sheet.py ',values
+  sh.append_row(values)
   
-# TEST write_to_log('Berkeley','Melissa','Sam',10,'reading books')
 
+# def pull_data():
+#     sh = gc.open("Bridging Berkeley Session Tracker")
+#     worksheet = sh.sheet1
+#     students_at_site=[]
+#     for row in worksheet.get_all_values():
+#         students_at_site.append(row)
+#     print 'reading from sheet==== ',students_at_site
 
+# pull_data()
+
+###For use in pre-populated forms- TBA
 #filter out the students at your desired site location
-def pull_students(site):
-    sh = gc.open("Student_ref")
-    worksheet = sh.sheet1
-    students_at_site=[]
+# def pull_students(site):
+#     sh = gc.open("Student_ref")
+#     worksheet = sh.sheet1
+#     students_at_site=[]
 
-    for row in worksheet.get_all_values():
-        if row[5].upper()==site.upper():
-            students_at_site.append(row)
+#     for row in worksheet.get_all_values():
+#         if row[5].upper()==site.upper():
+#             students_at_site.append(row)
 
-    print students_at_site
-    return students_at_site
-    #students= pull_students('Berkeley') 
+#     print students_at_site
+#     return students_at_site
+#     #students= pull_students('Berkeley') 
