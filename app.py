@@ -79,6 +79,7 @@ def submitform():
             message='Opps! Missing form data. Please fill out all the fields and try again.'
             return render_template('index2.html',post_success=post_success,message=message)
 
+
 if __name__ == "__main__":
     app.run(debug=True,host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080))) #for running in cloud9
     # app.run(debug=True, port=5000)  
