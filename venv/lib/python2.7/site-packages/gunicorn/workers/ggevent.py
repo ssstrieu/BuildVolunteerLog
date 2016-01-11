@@ -70,8 +70,12 @@ class GeventWorker(AsyncWorker):
         # patch sockets
         sockets = []
         for s in self.sockets:
-            sockets.append(socket(s.FAMILY, _socket.SOCK_STREAM,
-                _sock=s))
+            if sys.version_info[0] == 3:
+                sockets.append(socket(s.FAMILY, _socket.SOCK_STREAM,
+                    fileno=s.sock.fileno()))
+            else:
+                sockets.append(socket(s.FAMILY, _socket.SOCK_STREAM,
+                    _sock=s))
         self.sockets = sockets
 
     def notify(self):
@@ -161,6 +165,11 @@ class GeventWorker(AsyncWorker):
             pass
         except SystemExit:
             pass
+
+    def handle_quit(self, sig, frame):
+        # Move this out of the signal handler so we can use
+        # blocking calls. See #1126
+        gevent.spawn(super(GeventWorker, self).handle_quit, sig, frame)
 
     if gevent.version_info[0] == 0:
 

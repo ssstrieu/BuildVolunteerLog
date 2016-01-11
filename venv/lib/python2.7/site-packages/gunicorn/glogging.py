@@ -3,6 +3,8 @@
 # This file is part of gunicorn released under the MIT license.
 # See the NOTICE for more information.
 
+import base64
+import binascii
 import time
 import logging
 logging.Logger.manager.emittedNoHandlerWarning = 1
@@ -13,7 +15,7 @@ import sys
 import traceback
 
 from gunicorn import util
-from gunicorn.six import string_types
+from gunicorn.six import PY3, string_types
 
 
 # syslog facility codes
@@ -224,8 +226,8 @@ class Logger(object):
     def debug(self, msg, *args, **kwargs):
         self.error_log.debug(msg, *args, **kwargs)
 
-    def exception(self, msg, *args):
-        self.error_log.exception(msg, *args)
+    def exception(self, msg, *args, **kwargs):
+        self.error_log.exception(msg, *args, **kwargs)
 
     def log(self, lvl, msg, *args, **kwargs):
         if isinstance(lvl, string_types):
@@ -239,12 +241,17 @@ class Logger(object):
         atoms = {
             'h': environ.get('REMOTE_ADDR', '-'),
             'l': '-',
-            'u': '-',  # would be cool to get username from basic auth header
+            'u': self._get_user(environ) or '-',
             't': self.now(),
             'r': "%s %s %s" % (environ['REQUEST_METHOD'],
                 environ['RAW_URI'], environ["SERVER_PROTOCOL"]),
             's': status,
+            'm': environ.get('REQUEST_METHOD'),
+            'U': environ.get('PATH_INFO'),
+            'q': environ.get('QUERY_STRING'),
+            'H': environ.get('SERVER_PROTOCOL'),
             'b': resp.sent and str(resp.sent) or '-',
+            'B': resp.sent,
             'f': environ.get('HTTP_REFERER', '-'),
             'a': environ.get('HTTP_USER_AGENT', '-'),
             'T': request_time.seconds,
@@ -271,7 +278,7 @@ class Logger(object):
         for format details
         """
 
-        if not self.cfg.accesslog and not self.cfg.logconfig:
+        if not (self.cfg.accesslog or self.cfg.logconfig or self.cfg.syslog):
             return
 
         # wrap atoms:
@@ -330,6 +337,13 @@ class Logger(object):
             else:
                 util.check_is_writeable(output)
                 h = logging.FileHandler(output)
+                # make sure the user can reopen the file
+                try:
+                    os.chown(h.baseFilename, self.cfg.user, self.cfg.group)
+                except OSError:
+                    # it's probably OK there, we assume the user has given
+                    # /dev/null as a parameter.
+                    pass
 
             h.setFormatter(fmt)
             h._gunicorn = True
@@ -369,3 +383,26 @@ class Logger(object):
         h.setFormatter(fmt)
         h._gunicorn = True
         log.addHandler(h)
+
+    def _get_user(self, environ):
+        user = None
+        http_auth = environ.get("HTTP_AUTHORIZATION")
+        if http_auth and http_auth.startswith('Basic'):
+            auth = http_auth.split(" ", 1)
+            if len(auth) == 2:
+                try:
+                    # b64decode doesn't accept unicode in Python < 3.3
+                    # so we need to convert it to a byte string
+                    auth = base64.b64decode(auth[1].strip().encode('utf-8'))
+                    if PY3:  # b64decode returns a byte string in Python 3
+                        auth = auth.decode('utf-8')
+                    auth = auth.split(":", 1)
+                except TypeError as exc:
+                    self.debug("Couldn't get username: %s", exc)
+                    return user
+                except binascii.Error as exc:
+                    self.debug("Couldn't get username: %s", exc)
+                    return user
+                if len(auth) == 2:
+                    user = auth[0]
+        return user

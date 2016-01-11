@@ -57,7 +57,6 @@ class BaseSocket(object):
             self.sock.close()
         except socket.error as e:
             self.log.info("Error while closing socket %s", str(e))
-        time.sleep(0.3)
         del self.sock
 
 
@@ -104,6 +103,7 @@ class UnixSocket(BaseSocket):
                     os.remove(addr)
                 else:
                     raise ValueError("%r is not a socket" % addr)
+        self.parent = os.getpid()
         super(UnixSocket, self).__init__(addr, conf, log, fd=fd)
 
     def __str__(self):
@@ -118,7 +118,8 @@ class UnixSocket(BaseSocket):
 
     def close(self):
         super(UnixSocket, self).close()
-        os.unlink(self.cfg_addr)
+        if self.parent == os.getpid():
+            os.unlink(self.cfg_addr)
 
 
 def _sock_type(addr):
@@ -214,7 +215,6 @@ def create_sockets(conf, log):
                     log.error("Connection in use: %s", str(addr))
                 if e.args[0] == errno.EADDRNOTAVAIL:
                     log.error("Invalid address: %s", str(addr))
-                    sys.exit(1)
                 if i < 5:
                     log.error("Retrying in 1 second.")
                     time.sleep(1)
