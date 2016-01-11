@@ -61,7 +61,7 @@ def submitform():
             mentor=request.form.get('mentor')
             scholar=request.form.get('scholar')
             absence="N/A"
-            isDropin="Yes"
+            isDropin=True
             math_topic=request.form.get('math_topic')
             duration=int(request.form.get('duration'))
             mentor_rank="N/A"
