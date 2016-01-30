@@ -18,7 +18,8 @@ gc = gspread.authorize(credentials)
   
 ######Post to prod Sheet
 def writeToLog(site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note):
-  sh = gc.open("Bridging Berkeley Session Tracker").sheet1
+  sh = gc.open_by_key('1bRKYdXR6-Q3iRHZfOU5ycIzNaXCO3gdng2PkZwtvmM4').sheet1 #ID of log sheet
+  #sh = gc.open("Bridging Berkeley Session Tracker").sheet1
   date=str(datetime.datetime.now()).split(' ')[0]
   print date
   values=[date,site,mentor,scholar,absence,isDropin,duration, math_topic, mentor_rank,scholar_rank, note]
@@ -36,17 +37,15 @@ def writeToLog(site,mentor,scholar,absence,isDropin,duration, math_topic, mentor
 
 # pull_data()
 
-###For use in pre-populated forms- TBA
-#filter out the students at your desired site location
-# def pull_students(site):
-#     sh = gc.open("Student_ref")
-#     worksheet = sh.sheet1
-#     students_at_site=[]
+def pull_students():
+    sh = gc.open_by_key('16u543i4DobE7FW4mdkHNAD1PYvuxwRUca2NmmqZjw84').sheet1 #id of student list sheet
+    students_list=[]
+    for row in sh.col_values(4):
+          if row!='' and row !='FullName':
+            students_list.append(row)
 
-#     for row in worksheet.get_all_values():
-#         if row[5].upper()==site.upper():
-#             students_at_site.append(row)
-
-#     print students_at_site
-#     return students_at_site
-#     #students= pull_students('Berkeley') 
+    return students_list
+    #return students_list
+    #students= pull_students('Berkeley') 
+    
+#pull_students()

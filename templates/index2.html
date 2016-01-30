@@ -98,7 +98,12 @@
 		          </div>
 	          	<div class='col-md-4'>
 	                <label for='scholar' class='labels'>Scholar Name</label>
-	                <input type="text" class='form-control' name="scholar" placeholder="Please enter Scholar's name" required>
+	                <select class="form-control" name="scholar" required>
+	                 {% for student in students_list %}
+	                 		  <option>{{ student }}</option>
+	                 {% endfor %}
+									</select>
+
 	            </div>
           </div>
 					<div class='row row_spacing '>

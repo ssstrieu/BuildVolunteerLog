@@ -25,7 +25,8 @@ def index():
         return render_template('index.html',site=site)
     if auth.username()=='yap':
         site='Young Adult Project'
-        return render_template('index2.html',site=site)
+        students_list=pull_students()
+        return render_template('index2.html',site=site, students_list=students_list)
 
 @app.route('/submitLog',methods=['POST'])
 def submitform():
