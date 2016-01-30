@@ -1,4 +1,4 @@
-import requests, gspread, os
+import requests, os
 from flask import Flask, request, redirect, render_template
 from flask_httpauth import HTTPBasicAuth
 from sheet import *
@@ -74,11 +74,13 @@ def submitform():
             # print 'SUCCESSFULLY Written to log'
             post_success=True
             message='Thank you for submitting your activity.'
-            return render_template('index2.html',post_success=post_success,message=message)
+            students_list=pull_students()
+            return render_template('index2.html',post_success=post_success,message=message,students_list=students_list)
         except: 
             post_success=False
+            students_list=pull_students()
             message='Opps! Missing form data. Please fill out all the fields and try again.'
-            return render_template('index2.html',post_success=post_success,message=message)
+            return render_template('index2.html',post_success=post_success,message=message,students_list=students_list)
 
 
 if __name__ == "__main__":
