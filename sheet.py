@@ -43,9 +43,7 @@ def pull_students():
     for row in sh.col_values(4):
           if row!='' and row !='FullName':
             students_list.append(row)
-
+    students_list=sorted(students_list)
+    #print students_list
     return students_list
-    #return students_list
-    #students= pull_students('Berkeley') 
     
-#pull_students()
